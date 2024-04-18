@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <title>Chatbot BCRP del Departamento de Estadísticas Monetarias</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Bootstrap select-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    -->
+    <link rel="stylesheet" href="index.css">
+    <link  rel="icon"   href="img/bcrp-icon.jpg" type="image/png" />
+  </head>
+  <body>
+   <!--
+<section style="background-color: #eee;">  
+</section>
+<div class="container py-5">
+--> 
+
+
+  <div class="container justify-content-center" >
+   
+  <!--<div class="col-md-8 col-lg-6 col-xl-4" style="padding-right: initial;">
+  -->
+      <div id="chatbot" class="card">
+        <div id="chatbot-header" class="card-header d-flex justify-content-between align-items-center p-3"
+          >
+          
+          <div class="d-flex flex-row align-items-center">
+            <img src="img/bcrp-icon.jpg" class="rounded-circle"
+              alt="avatar chatbot" style="width: 45px; height: 100%;">
+              <!--
+                <img src="https://w7.pngwing.com/pngs/529/418/png-transparent-computer-icons-internet-bot-eyes-miscellaneous-people-sticker-thumbnail.png"
+                alt="avatar chatbot" style="width: 45px; height: 100%;">
+              -->
+          </div>
+          <h5 class="mb-0 text-center">Asistente DepEstMon</h5>
+          <button id="refrescar" type="button" class="btn d-flex flex-row align-items-center" onclick="location.reload();">
+            <img src="img/refresh.png" alt="Refrescar bot" style="width: 45px; height: 100%;">
+          </button>
+        </div>
+        <div id="chatbot-body" class="card-body" data-mdb-perfect-scrollbar="true" >
+          <!--
+          <div class="d-flex justify-content-between">
+            <p class="small mb-1">Timona Siera</p>
+            <p class="small mb-1 text-muted">23 Jan 2:00 pm</p>
+          </div>
+          -->
+          <br>
+          
+        </div>
+        <div id="chatbot-footer" class="card-footer justify-content-between p-3">
+        <!-- <div id="chatbot-footer" class="card-footer d-flex justify-content-between  p-3">-->
+            <div id="flujoEntradaTexto" class="justify-content-start align-items-center p-3">
+                <input type="password" class="form-control" placeholder="Escribe aquí"  id="inputChat" autofocus />
+                
+            </div>
+            <div id="flujoFechasTrimestrales" class="justify-content-between align-items-center p-3" style="display: none;">
+              
+              <div id="fromTrimestre">
+                <select name="fromTrimestreNumber" id="fromTrimestreNumber" class="form-select">
+                  <option value="1T" selected>1T</option>
+                </select>
+                <select name="fromTrimestreYear" id="fromTrimestreYear" class="form-select">
+                  <option value="1980" selected>1980</option>
+                  </select>
+
+              </div>
+              <p class="small" style="margin:0px 0.50rem 0px 0.50rem !important;">Hasta el trimestre</p>
+              <div id="toTrimestre">
+                <select name="toTrimestreNumber" id="toTrimestreNumber" class="form-select">
+                  <option value="1T">1T</option>
+                </select>
+                <select name="toTrimestreYear" id="toTrimestreYear" class="form-select">
+                  <option value="1980">1980</option>
+                  </select>
+              </div>
+              
+              
+                
+            </div>
+            <div id="flujoFechasNormales" class="justify-content-center align-items-center p-3" style="display: none;">
+              <input type="date" pattern="\d*" id="fechaFrom" name="fechaFrom" value="2000-01-01" min="2000-01-01" max="2024-01-31" required autofocus>
+              <p style="margin:0px 0.50rem 0px 0.50rem !important;">al</p>
+              <input type="date" pattern="\d*" id="fechaTo" name="fechaTo" value="2000-01-31" min="2000-01-01" max="2024-01-31" required>   
+            </div>
+            <div id="flujoOpcionesSimples" class="justify-content-start align-items-center p-3">
+              
+              <select id="opcionesSimples" class="form-control">
+                <option value="0">Selecciona una opción</option>
+              </select>
+              
+            </div>
+            <div id="flujoOpcionesMultiples" class="justify-content-start align-items-center p-3" style="display: none;">
+              <select id="choices-multiple-remove-button" placeholder="Seleccione los items que desee" multiple>
+               
+                <option value="custom">Custom choices</option>
+            </select> 
+            </div>
+
+            <div id="flujoSliderRange" class="justify-content-start align-items-center p-3" style="display: none;">
+              <input type="text" id="sliderRange" class="form-control">
+            </div>
+
+            <div id="flujoRangeValues" class="justify-content-start align-items-center p-3" style="display: none;">
+              <input type="text" class="form-control" placeholder="0.00"  id="inputMin" name="inputMin" data-inputmask="'alias': 'decimal', 'groupSeparator': ','" />
+              <p style="margin:0px 0.50rem 0px 0.50rem !important;">a</p>
+              <input type="text" class="form-control" placeholder="0.00"  id="inputMax" name="inputMax" data-inputmask="'alias': 'decimal', 'groupSeparator': ','" />
+            </div>
+            <div class="botones-opciones d-flex justify-content-center">
+              <!--<div class="botones-opciones d-flex justify-content-end p-3">-->
+              <button class="btn" type="button" id="enviar" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-send" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"></path></svg>
+              </button>
+              <button class="btn" type="button" id="microfono">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" fill="white" width="20"><path d="M176 352c53.02 0 96-42.98 96-96V96c0-53.02-42.98-96-96-96S80 42.98 80 96v160c0 53.02 42.98 96 96 96zm160-160h-16c-8.84 0-16 7.16-16 16v48c0 74.8-64.49 134.82-140.79 127.38C96.71 376.89 48 317.11 48 250.3V208c0-8.84-7.16-16-16-16H16c-8.84 0-16 7.16-16 16v40.16c0 89.64 63.97 169.55 152 181.69V464H96c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16h-56v-33.77C285.71 418.47 352 344.9 352 256v-48c0-8.84-7.16-16-16-16z"></path></svg>
+              </button>
+            </div>
+             
+          </div>
+        
+      </div>
+
+  </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!--Bootstrap select-->
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+    <!--
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js" integrity="sha512-tCkLWlSXiiMsUaDl5+8bqwpGXXh0zZsgzX6pB9IQCZH+8iwXRYfcCpdxl/owoM6U4ap7QZDW4kw7djQUiQ4G2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      
+    <script src="scripts/setting-chatbot.js"></script>
+    <script src="scripts/database-api.js"></script>
+    <script src="scripts/dialog-flow.js"></script>
+    <script src="scripts/init-chatbot.js"></script>
+    <script src="scripts/speech_recognition.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js" integrity="sha512-rMGGF4wg1R73ehtnxXBt5mbUfN9JUJwbk21KMlnLZDJh7BkPmeovBuddZCENJddHYYMkCh9hPFnPmS9sspki8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.2.6/jquery.inputmask.bundle.min.js"></script>
+    
+  </body>
+</html>
